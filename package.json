@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": ".eslintrc.js",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "jest": "^24.9.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "jest"
   },
