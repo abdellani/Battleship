@@ -1,21 +1,28 @@
-const { Ship } = require("./ship");
+const {
+  Ship
+} = require("./ship");
 
 const GameBoard = (columns, rows) => {
   // board is 10 x 10
   let ships = []
   let misses = []
   const addShipToBattlefield = (initialCordinate, direction, object) => {
-    if ((direction === true && (initialCordinate[0] + object.length() >= columns
-      || initialCordinate[1] >= rows))
-      || (direction === false && (initialCordinate[1] + object.length() >= rows
-        || initialCordinate[0] >= columns))) {
-      return
+    if ((direction === true && (initialCordinate[0] + object.length() >= columns ||
+        initialCordinate[1] >= rows)) ||
+      (direction === false && (initialCordinate[1] + object.length() >= rows ||
+        initialCordinate[0] >= columns))) {
+      return false
     } else {
       if (!newShipCoordinateCheck(initialCordinate[0], initialCordinate[1], direction, object.length())) {
         // direction : true => horisontal, false => vertical
-        ships.push({ initialCordinate, direction, object })
+        ships.push({
+          initialCordinate,
+          direction,
+          object
+        })
+        return true;
       } else {
-        return
+        return false;
       }
 
     }
@@ -23,8 +30,8 @@ const GameBoard = (columns, rows) => {
 
   const getOverlap = (x, y) => {
     let result = ships.some((ship) => {
-      if (ship.direction === true && y === ship.initialCordinate[1] && x >= ship.initialCordinate[0] && x < (ship.initialCordinate[0] + ship.object.length())
-        || ship.direction === false && x === ship.initialCordinate[0] && y >= ship.initialCordinate[1] && y < (ship.initialCordinate[1] + ship.object.length())) {
+      if (ship.direction === true && y === ship.initialCordinate[1] && x >= ship.initialCordinate[0] && x < (ship.initialCordinate[0] + ship.object.length()) ||
+        ship.direction === false && x === ship.initialCordinate[0] && y >= ship.initialCordinate[1] && y < (ship.initialCordinate[1] + ship.object.length())) {
         return true
       }
     })
@@ -84,13 +91,21 @@ const GameBoard = (columns, rows) => {
 
     }
   }
-
+  let checkGameOver = () => {
+    return !ships.some((ship) => { // true means game
+      // console.log(ship.object.getFields()) 
+      return !ship.object.isSunk() // > no sunk = game is not over
+    })
+  }
   return {
     addShipToBattlefield,
     getShips,
     receiveAttack,
-    getMisses
+    getMisses,
+    checkGameOver
   }
 }
 
-module.exports = { GameBoard }
+module.exports = {
+  GameBoard
+}

@@ -83,3 +83,28 @@ describe("#recieveAttack", () => {
     expect(gameBoard.getMisses()).toStrictEqual([[1, 1]])
   })
 })
+describe("#checkGameOver", () => {
+  let ship,ship1;
+  let gameBoard;
+  beforeEach(() => {
+    gameBoard = GameBoard(10, 10);
+    ship = Ship(1)
+    ship1 = Ship(1)
+  })
+
+  it("it should return false if not all the ships are sunk", () => {
+    gameBoard.addShipToBattlefield([0, 0], true, ship)
+    gameBoard.addShipToBattlefield([1, 1], true, ship1)
+    expect(gameBoard.receiveAttack(0, 0)).toBe(true)
+    expect(gameBoard.checkGameOver()).toBe(false)
+  })
+  it("it should return true if all the ships are sunk", () => {
+    
+    gameBoard.addShipToBattlefield([0, 0], true, ship)
+    gameBoard.addShipToBattlefield([1, 1], true, ship1)
+    expect(gameBoard.receiveAttack(0, 0)).toBe(true)
+    expect(gameBoard.receiveAttack(1, 1)).toBe(true)
+    expect(gameBoard.checkGameOver()).toBe(true)
+  })
+
+})
