@@ -7,6 +7,9 @@ const Player = (name) => {
   let initiate = (x, y) => {
     gameBoard = GameBoard(x, y);
   }
+  const getName = () => {
+    return name
+  }
 
   let addShip = (x, y, direction, size) => {
     let ship = Ship(size)
@@ -30,7 +33,8 @@ const Player = (name) => {
     receiveAttack,
     getMisses,
     getShips,
-    checkGameOver
+    checkGameOver,
+    getName
   }
 
 }

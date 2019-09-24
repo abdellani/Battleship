@@ -6,7 +6,9 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/preset-env": "^7.6.2",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
   },
   "scripts": {
     "test": "jest"

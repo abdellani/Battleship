@@ -1,0 +1,66 @@
+body {
+  background-color: #EEEEEE;
+}
+
+.container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 95vh;
+  width: 100vw;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 0px;
+  padding: 10px;
+}
+
+.main {
+  display: flex;
+  width: 90%;
+  justify-content: space-around;
+}
+
+.field {
+  height: 2.7vw;
+  width: 2.7vw;
+  margin: 0;
+  border: 0.3px solid black;
+}
+
+.playerName {
+  grid-column: 1/ -1;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.player-container {
+  padding: 50px 70px;
+  width: 500px;
+  border-radius: 5px;
+  text-align: center;
+  background: white;
+}
+
+.player-container input {
+  width: 100%;
+}
+
+.ship {
+  background: lightcoral;
+}
+
+.shipHit {
+  background: red;
+}
+
+.miss {
+  background: yellow;
+  cursor: default;
+}
+
+.size {
+  height: 50px;
+}
