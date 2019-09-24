@@ -6,9 +6,9 @@ const GameBoard = (columns, rows) => {
   let misses = []
   const addShipToBattlefield = (initialCordinate, direction, object) => {
 
-    if ((direction === true && (initialCordinate[0] + object.length()-1 >= columns ||
-        initialCordinate[1] >= rows)) ||
-      (direction === false && (initialCordinate[1] + object.length()-1 >= rows ||
+    if ((direction === true && (initialCordinate[0] + object.length() - 1 >= columns ||
+      initialCordinate[1] >= rows)) ||
+      (direction === false && (initialCordinate[1] + object.length() - 1 >= rows ||
         initialCordinate[0] >= columns))) {
       return false
     } else {
@@ -73,7 +73,7 @@ const GameBoard = (columns, rows) => {
 
   const receiveAttack = (x, y) => {
     if (checkMissedHits(x, y)) {
-      return false
+      return -1
     } else {
       let result = ships.some((ship) => {
         // direction : true => horisontal/ x, false => vertical/ y
@@ -85,8 +85,9 @@ const GameBoard = (columns, rows) => {
       })
       if (!result) {
         misses.push([x, y])
+        return 0
       }
-      return true
+      return 1
 
     }
   }

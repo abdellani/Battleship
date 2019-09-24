@@ -1,10 +1,12 @@
 body {
   background-color: #EEEEEE;
 }
-#container{
+
+#container {
   position: absolute;
-  top:100px;
+  top: 100px;
 }
+
 .container-fluid {
   display: flex;
   align-items: center;
@@ -41,7 +43,7 @@ body {
 
 .player-container {
   padding: 50px 70px;
-  width: 500px;
+  width: auto;
   border-radius: 5px;
   text-align: center;
   background: white;
@@ -54,9 +56,11 @@ body {
 .ship {
   background: lightcoral;
 }
-.ship-selected{
+
+.ship-selected {
   background: yellow;
 }
+
 .shipHit {
   background: red;
 }

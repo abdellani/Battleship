@@ -24,13 +24,31 @@ const domManager = () => {
 
   //Variables relates to game
   const playerBoard = document.getElementById('player-board')
-  const compBoard = document.getElementById('comp-board')
-  const boardLoad = document.getElementById('board-container')
-
+  const computerBoard = document.getElementById('computer-board')
+  const boardContainer = document.getElementById('board-container')
+  const play = document.getElementById('play')
   let matrixSize;
   let player;
+  let computer;
+
+
+
 
   //Listeners
+
+  play.addEventListener('click', () => {
+    if (remainingShipsCounter == 0) {
+      addShipFormContainer.classList.add('d-none')
+      boardContainer.classList.remove('d-none')
+      generateComputerShips()
+      renderBoard(player, playerBoard)
+      renderBoard(computer, computerBoard, 'computer')
+
+    } else {
+      alert('Please add every ship!')
+    }
+  })
+
   nextButton.addEventListener('click', () => {
     if (!(/([^\s])/.test(playerName.value))) {
       alert('Name should not be empty !');
@@ -38,17 +56,19 @@ const domManager = () => {
     }
     matrixSize = Number(boardSize.value)
     player = Player(playerName.value)
-    player.initiate(boardSize.value, boardSize.value)
+    player.initiate(matrixSize, matrixSize)
+    computer = Player('computer')
+    computer.initiate(matrixSize, matrixSize)
     playerForm.classList.add('d-none')
     remainingShipsCounter = numOfShips.value
-    renderAddShipContainer(boardSize.value)
+    renderAddShipContainer(matrixSize)
 
     //
     //boardLoad.classList.remove('d-none')
     //addShipGrid.classList.remove('d-none')
-    addShipBoard.style.gridTemplateColumns = `repeat(${boardSize.value}, 1fr)`
-    playerBoard.style.gridTemplateColumns = `repeat(${boardSize.value}, 1fr)`
-    compBoard.style.gridTemplateColumns = `repeat(${boardSize.value}, 1fr)`
+    addShipBoard.style.gridTemplateColumns = `repeat(${matrixSize}, 1fr)`
+    playerBoard.style.gridTemplateColumns = `repeat(${matrixSize}, 1fr)`
+    computerBoard.style.gridTemplateColumns = `repeat(${matrixSize}, 1fr)`
   })
 
   addShipButton.addEventListener("click", () => {
@@ -68,13 +88,21 @@ const domManager = () => {
     renderBoard(player, addShipBoard, "AddShip")
   })
 
+  const generateComputerShips = () => {
+    let computerShipsNumber = player.getShips()
+    for (let i = 0; i < computerShipsNumber.length; i++) {
+      if (!computer.addShip(Math.floor(Math.random() * 6), Math.floor(Math.random() * (matrixSize - 1)), 'horizontal', computerShipsNumber[i].object.getFields().length)) {
+        i--
+      }
+    }
+  }
   const renderAddShipContainer = (size) => {
     addShipFormContainer.classList.remove('d-none')
     renderBoard(player, addShipBoard, "AddShip")
   }
 
   const renderBoard = (player, boardContainer, context = null) => {
-    if (context = "AddShip") {
+    if (context === "AddShip") {
       remainingShipsCounterSpan.innerHTML = remainingShipsCounter
     }
     boardContainer.innerHTML = ""
@@ -82,11 +110,13 @@ const domManager = () => {
       for (let j = 0; j < matrixSize; j++) {
         let element = document.createElement("DIV");
         element.classList.add('field');
+        if (context !== 'computer') {
 
+        }
         if (player.checkField(j, i)) {
           element.classList.add("ship")
         }
-        if (context = "AddShip") {
+        if (context === "AddShip") {
           let size = Number(newShipSize.value)
           let orientation = newShipOrientation.value
           let x = Number(newShipCoorX.value)
@@ -99,10 +129,20 @@ const domManager = () => {
           }
         }
         element.addEventListener('click', () => {
-          if (context = "AddShip") {
+          if (context === "AddShip") {
             newShipCoorX.value = j
             newShipCoorY.value = i
             renderBoard(player, boardContainer, "AddShip")
+          }
+
+          if (context === 'computer') {
+            let result = computer.receiveAttack(j, i)
+            console.log(result)
+            if (result) {
+              element.classList.add('shipHit')
+            } else {
+              element.classList.add('miss')
+            }
           }
         })
         boardContainer.appendChild(element);
