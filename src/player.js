@@ -1,9 +1,5 @@
-const {
-  GameBoard
-} = require("./gameBoard");
-const {
-  Ship
-} = require("./ship");
+import GameBoard from "./gameBoard";
+import Ship from "./ship";
 
 
 const Player = (name) => {
@@ -13,7 +9,7 @@ const Player = (name) => {
   }
 
   let addShip = (x, y, direction, size) => {
-    ship = Ship(size)
+    let ship = Ship(size)
     return gameBoard.addShipToBattlefield([x, y], (direction === "horizontal") ? true : false, ship)
   }
   let receiveAttack = (x, y) => {
@@ -39,6 +35,4 @@ const Player = (name) => {
 
 }
 
-module.exports = {
-  Player
-};
+export default Player;

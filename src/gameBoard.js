@@ -1,6 +1,4 @@
-const {
-  Ship
-} = require("./ship");
+import Ship from "./ship";
 
 const GameBoard = (columns, rows) => {
   // board is 10 x 10
@@ -106,6 +104,4 @@ const GameBoard = (columns, rows) => {
   }
 }
 
-module.exports = {
-  GameBoard
-}
+export default GameBoard;

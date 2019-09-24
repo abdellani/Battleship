@@ -32,4 +32,4 @@ let Ship = (size) => {
   }
 }
 
-module.exports = { Ship };
+export default  Ship ;

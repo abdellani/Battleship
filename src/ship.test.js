@@ -1,4 +1,4 @@
-const {Ship} = require("./ship");
+import Ship from "./ship";
 
 describe("#length", () => {
   let ship;

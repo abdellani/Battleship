@@ -1,7 +1,5 @@
-const {
-  Player
-} = require("./player");
-const {Ship} = require("./ship");
+import Player from "./player";
+import Ship from "./ship";
 
 describe("Player", () => {
   let player;
@@ -39,11 +37,8 @@ describe("Player", () => {
     it("it should add ship",()=>{
       player.addShip(0,0,"horizontal",4)
       expect(player.getShips().length).toBe(1)
-      console.log(player.getShips()[0].object)
-      console.log(player.getShips()[0].object instanceof Ship).toBe(true)
       expect(player.getShips()[0].initialCordinate).toStrictEqual([0,0])
       expect(player.getShips()[0].direction).toBe(true)
-      //expect(player.getShips()[0].initialCordinate).toStrictEqual([0,0])
     })
 
   })

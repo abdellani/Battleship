@@ -1,5 +1,5 @@
-const { Ship } = require("./ship");
-const { GameBoard } = require("./gameBoard");
+import Ship from "./ship";
+import GameBoard from "./gameBoard";
 
 describe("#Add ship to battlefield", () => {
   let ship;

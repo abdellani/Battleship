@@ -5,6 +5,7 @@
   "main": ".eslintrc.js",
   "dependencies": {},
   "devDependencies": {
+    "@babel/preset-env": "^7.6.2",
     "jest": "^24.9.0"
   },
   "scripts": {
