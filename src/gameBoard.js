@@ -5,14 +5,15 @@ const GameBoard = (columns, rows) => {
   let ships = []
   let misses = []
   const addShipToBattlefield = (initialCordinate, direction, object) => {
-    if ((direction === true && (initialCordinate[0] + object.length() >= columns ||
+
+    if ((direction === true && (initialCordinate[0] + object.length()-1 >= columns ||
         initialCordinate[1] >= rows)) ||
-      (direction === false && (initialCordinate[1] + object.length() >= rows ||
+      (direction === false && (initialCordinate[1] + object.length()-1 >= rows ||
         initialCordinate[0] >= columns))) {
       return false
     } else {
       if (!newShipCoordinateCheck(initialCordinate[0], initialCordinate[1], direction, object.length())) {
-        // direction : true => horisontal, false => vertical
+        // direction : true => horizontal, false => vertical
         ships.push({
           initialCordinate,
           direction,
@@ -61,7 +62,7 @@ const GameBoard = (columns, rows) => {
     return misses
   }
 
-  const checkForSelectedField = (x, y) => {
+  const checkMissedHits = (x, y) => {
     let result = misses.some((coordinate) => {
       if (x === coordinate[0] && y === coordinate[1]) {
         return true
@@ -71,7 +72,7 @@ const GameBoard = (columns, rows) => {
   }
 
   const receiveAttack = (x, y) => {
-    if (checkForSelectedField(x, y)) {
+    if (checkMissedHits(x, y)) {
       return false
     } else {
       let result = ships.some((ship) => {
@@ -100,7 +101,8 @@ const GameBoard = (columns, rows) => {
     getShips,
     receiveAttack,
     getMisses,
-    checkGameOver
+    checkGameOver,
+    getOverlap
   }
 }
 

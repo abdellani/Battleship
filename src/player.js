@@ -27,6 +27,9 @@ const Player = (name) => {
   let checkGameOver = () => {
     return gameBoard.checkGameOver()
   }
+  let checkField= (x,y)=>{
+    return gameBoard.getOverlap(x,y)
+  }
   return {
     initiate,
     addShip,
@@ -34,7 +37,8 @@ const Player = (name) => {
     getMisses,
     getShips,
     checkGameOver,
-    getName
+    getName,
+    checkField
   }
 
 }
