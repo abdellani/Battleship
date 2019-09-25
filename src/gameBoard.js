@@ -97,7 +97,7 @@ const GameBoard = (columns, rows) => {
     }
     return result;
   };
-  const checkGameOver = () => !ships.some( ship => !ship.object.isSunk());
+  const checkGameOver = () => !ships.some(ship => !ship.object.isSunk());
   return {
     addShipToBattlefield,
     getShips,
