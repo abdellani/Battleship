@@ -47,6 +47,7 @@ body {
   border-radius: 5px;
   text-align: center;
   background: white;
+  min-width: 500px;
 }
 
 .player-container input {

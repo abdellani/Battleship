@@ -1,3 +1,3 @@
-import domManager from './domManager'
+import domManager from './domManager';
 
-const manager = domManager()
+domManager();

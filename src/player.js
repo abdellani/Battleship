@@ -1,46 +1,33 @@
-import GameBoard from "./gameBoard";
-import Ship from "./ship";
+import GameBoard from './gameBoard';
+import Ship from './ship';
 
 
 const Player = (name) => {
   let gameBoard;
-  let initiate = (x, y) => {
+  const initiate = (x, y) => {
     gameBoard = GameBoard(x, y);
-  }
-  const getName = () => {
-    return name
-  }
+  };
+  const getName = () => name;
 
-  let addShip = (x, y, direction, size) => {
-    let ship = Ship(size)
-    return gameBoard.addShipToBattlefield([x, y], (direction === "horizontal") ? true : false, ship)
-  }
-  let receiveAttack = (x, y) => {
-    return gameBoard.receiveAttack(x, y)
-  }
-  let getMisses = () => {
-    return gameBoard.getMisses()
-  }
-  let getShips = () => {
-    return gameBoard.getShips()
-  }
-  let checkGameOver = () => {
-    return gameBoard.checkGameOver()
-  }
-  let checkField= (x,y)=>{
-    return gameBoard.getOverlap(x,y)
-  }
+  const addShip = (x, y, direction, size) => {
+    const ship = Ship(size);
+    return gameBoard.addShipToBattlefield([x, y], (direction === 'horizontal'), ship);
+  };
+  const receiveAttack = (x, y) => gameBoard.receiveAttack(x, y);
+  const getMisses = () => gameBoard.getMisses();
+  const getShips = () => gameBoard.getShips();
+  const checkGameOver = () => gameBoard.checkGameOver();
+  const checkField = (x, y) => gameBoard.getOverlap(x, y);
   return {
     initiate,
     addShip,
-    receiveAttack,
     getMisses,
     getShips,
     checkGameOver,
+    receiveAttack,
     getName,
-    checkField
-  }
-
-}
+    checkField,
+  };
+};
 
 export default Player;
