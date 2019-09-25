@@ -1,4 +1,4 @@
-# 🚀 Welcome to Battleship game!
+# 🚀 Welcome to the Battleship game!
 For running the tests:
 ```
 npm run test
