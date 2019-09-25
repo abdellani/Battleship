@@ -67,11 +67,25 @@
     <div id='board-container' class="main d-none">
       <div>
         <div class="playerName">
-          <h4>PLAYER</h4>
+          <h4 id='playerNameDisplay'>PLAYER</h4>
           <p>You can see the possition of your ships</p>
         </div>
         <div class="board bg-white shadow" id='player-board'>
         </div>
+      </div>
+      <div class="reset">
+        Restart the game!
+        <div class="lehend">
+          <div class="missed row mt-2">
+            <div class="miss field col-6"></div>
+            <span class='col-6'>Miss!</span>
+          </div>
+          <div class="hitted mt-2 mb-2 row">
+            <div class="shipHit field col-6"></div>
+            <span class='col-6'>Hit! </span>
+          </div>
+        </div>
+        <button class='btn btn-primary btn-block' id='reset'>Reset</button>
       </div>
       <div>
         <div class="playerName">

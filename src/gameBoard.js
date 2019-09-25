@@ -73,7 +73,7 @@ const GameBoard = (columns, rows) => {
 
   const receiveAttack = (x, y) => {
     if (checkMissedHits(x, y)) {
-      return -1
+      return false
     } else {
       let result = ships.some((ship) => {
         // direction : true => horisontal/ x, false => vertical/ y
@@ -85,9 +85,8 @@ const GameBoard = (columns, rows) => {
       })
       if (!result) {
         misses.push([x, y])
-        return 0
       }
-      return 1
+      return result
 
     }
   }

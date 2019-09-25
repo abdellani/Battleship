@@ -73,3 +73,19 @@ body {
 .size {
   height: 50px;
 }
+
+.reset {
+  width: 10vw;
+  text-align: center;
+  align-self: center;
+}
+
+.missed {
+  display: flex;
+  align-items: center;
+}
+
+.hitted {
+  display: flex;
+  align-items: center;
+}

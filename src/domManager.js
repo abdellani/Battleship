@@ -10,6 +10,7 @@ const domManager = () => {
   const boardSize = document.getElementById('inputFieldSize')
   const numOfShips = document.getElementById('inputNumberOfShips')
   const nextButton = document.getElementById('next-button')
+  const playerNameDisplay = document.getElementById('playerNameDisplay')
 
   //Variables related to Add ship form
   const addShipFormContainer = document.getElementById('add-ships-form-container')
@@ -27,6 +28,7 @@ const domManager = () => {
   const computerBoard = document.getElementById('computer-board')
   const boardContainer = document.getElementById('board-container')
   const play = document.getElementById('play')
+  const restart = document.getElementById('reset')
   let matrixSize;
   let player;
   let computer;
@@ -36,14 +38,18 @@ const domManager = () => {
 
   //Listeners
 
+  restart.addEventListener('click', () => {
+    reset()
+  })
+
   play.addEventListener('click', () => {
     if (remainingShipsCounter == 0) {
       addShipFormContainer.classList.add('d-none')
       boardContainer.classList.remove('d-none')
       generateComputerShips()
-      renderBoard(player, playerBoard)
+      renderBoard(player, playerBoard, 'Player')
       renderBoard(computer, computerBoard, 'computer')
-
+      playerNameDisplay.innerText = player.getName()
     } else {
       alert('Please add every ship!')
     }
@@ -101,7 +107,7 @@ const domManager = () => {
     renderBoard(player, addShipBoard, "AddShip")
   }
 
-  const renderBoard = (player, boardContainer, context = null) => {
+  const renderBoard = (user, boardContainer, context = null) => {
     if (context === "AddShip") {
       remainingShipsCounterSpan.innerHTML = remainingShipsCounter
     }
@@ -111,10 +117,9 @@ const domManager = () => {
         let element = document.createElement("DIV");
         element.classList.add('field');
         if (context !== 'computer') {
-
-        }
-        if (player.checkField(j, i)) {
-          element.classList.add("ship")
+          if (user.checkField(j, i)) {
+            element.classList.add("ship")
+          }
         }
         if (context === "AddShip") {
           let size = Number(newShipSize.value)
@@ -132,19 +137,32 @@ const domManager = () => {
           if (context === "AddShip") {
             newShipCoorX.value = j
             newShipCoorY.value = i
-            renderBoard(player, boardContainer, "AddShip")
+            renderBoard(user, boardContainer, "AddShip")
           }
 
           if (context === 'computer') {
-            let result = computer.receiveAttack(j, i)
-            console.log(result)
-            if (result) {
-              element.classList.add('shipHit')
+            if (!element.classList.contains('shipHit') && !element.classList.contains('miss')) {
+              let result = computer.receiveAttack(j, i)
+              if (result) {
+                element.classList.add('shipHit')
+                if (computer.checkGameOver()) {
+                  if (confirm(`Game over winner ${player.getName()}! Play again?`)) {
+                    reset()
+                  }
+                  return
+                }
+              } else {
+                element.classList.add('miss')
+              }
+              gamePlay()
             } else {
-              element.classList.add('miss')
+              alert('You cant hit same field more than once!')
             }
           }
         })
+        if (context === 'Player') {
+          element.setAttribute('id', `${i}-${j}`)
+        }
         boardContainer.appendChild(element);
       }
     }
@@ -172,6 +190,35 @@ const domManager = () => {
         compBoard.appendChild(element);
       }
     }
+  }
+
+  const gamePlay = () => {
+    let x = Math.floor(Math.random() * matrixSize)
+    let y = Math.floor(Math.random() * matrixSize)
+    let element = document.getElementById(`${x}-${y}`)
+    if (!element.classList.contains('shipHit') && !element.classList.contains('miss')) {
+      let result = player.receiveAttack(y, x)
+      if (result) {
+        element.classList.add('shipHit')
+        if (player.checkGameOver()) {
+          if (confirm('Game over winner Computer! Play again?')) {
+            reset()
+          }
+          return
+        }
+      } else {
+        element.classList.add('miss')
+      }
+    } else {
+      gamePlay()
+    }
+  }
+
+  const reset = () => {
+    player = null
+    computer = null
+    boardContainer.classList.add('d-none')
+    playerForm.classList.remove('d-none')
   }
 
   return {
