@@ -24,7 +24,7 @@ To get the latest updates :
 ```
 git pull origin development
 ```
-Live demo
+## Live demo
 
 For a live demo, [click here](https://rawcdn.githack.com/abdellani/Battleship/af26304bdf8c7177c6fcedef8785c8b92a1c1699/dist/index.html)
 
